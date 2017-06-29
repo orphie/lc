@@ -16,7 +16,6 @@ public:
             }
             // all right tar doesn't depends on src.
             depends[src].insert(tar);
-            depends[src].insert(depends[tar].begin(), depends[tar].end());
         }
         return true;
     }
