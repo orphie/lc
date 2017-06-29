@@ -1,14 +1,11 @@
 class Solution {
-public:
     typedef vector<pair<int, int>> PreVec;
     typedef PreVec::const_iterator PreIter;
     typedef std::unordered_map<int, std::unordered_set<int>> Id2Deps;
+public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
         Id2Deps depends;
-        for (PreIter it = prerequisites.begin();
-             it != prerequisites.end();
-             ++it)
-        {
+        for (PreIter it = prerequisites.begin(); it != prerequisites.end(); ++it) {
             int src = it->first;
             int tar = it->second;
             if (isDepends(tar, src, depends)) {
