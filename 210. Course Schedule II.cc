@@ -15,13 +15,6 @@ public:
         }
         
         vector<int> ret;
-        collect(ret, id2Depended, id2Depends);
-        return (ret.size() == numCourses) ? ret : vector<int>();
-    }
-    
-    void inline 
-    collect(vector<int>& ret, vector<vector<int>>& id2Depended, vector<int>& id2Depends)
-    {
         for (size_t id = 0; id < id2Depends.size(); ++id) {
             if (id2Depends[id] == -1) {
                 continue;
@@ -32,6 +25,7 @@ public:
                 explore(id, ret, id2Depended, id2Depends);
             }
         }
+        return (ret.size() == numCourses) ? ret : vector<int>();
     }
     
     void inline 
