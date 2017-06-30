@@ -19,25 +19,23 @@ public:
         return (ret.size() == numCourses) ? ret : vector<int>();
     }
     
-    void 
+    void inline 
     collect(vector<int>& ret, vector<vector<int>>& id2Depended, vector<int>& id2Depends)
     {
-        unordered_set<int> done;
         for (size_t id = 0; id < id2Depends.size(); ++id) {
-            if (done.find(id) != done.end()) {
+            if (id2Depends[id] == -1) {
                 continue;
             }
             if (id2Depends[id] == 0) {
                 ret.push_back(id);
-                done.insert(id);
-                explore(id, ret, id2Depended, id2Depends, done);
+                --id2Depends[id];
+                explore(id, ret, id2Depended, id2Depends);
             }
         }
     }
     
-    void 
-    explore(int id, vector<int>& ret, vector<vector<int>>& id2Depended, vector<int>& id2Depends, 
-            unordered_set<int>& done) 
+    void inline 
+    explore(int id, vector<int>& ret, vector<vector<int>>& id2Depended, vector<int>& id2Depends) 
     {
         vector<int>& depended = id2Depended[id];
         for (vector<int>::iterator it = depended.begin();
@@ -46,8 +44,8 @@ public:
             int tar = *it;
             if (--id2Depends[tar] == 0) {
                 ret.push_back(tar);
-                done.insert(tar);
-                explore(tar, ret, id2Depended, id2Depends, done);               
+                --id2Depends[tar];
+                explore(tar, ret, id2Depended, id2Depends);               
             }
         }
     }
